@@ -59,6 +59,25 @@ else:
 MODEL_NAME = "models/gemini-2.5-pro"
 GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta"
 
+import streamlit as st
+import requests
+
+# 1. Inspect the key physically
+key_from_secrets = st.secrets["GEMINI_API_KEY"]
+st.write(f"Key length: {len(key_from_secrets)}") # Should be 39
+if key_from_secrets != key_from_secrets.strip():
+    st.error("🚨 Found hidden spaces/newlines in your Streamlit Secret!")
+
+# 2. Test the connection without the OpenAI library
+st.write("Testing direct connection to Google...")
+test_url = f"https://generativelanguage.googleapis.com/v1beta/models?key={key_from_secrets.strip()}"
+response = requests.get(test_url)
+
+if response.status_code == 200:
+    st.success("Google confirms the Key is valid!")
+else:
+    st.error(f"Google rejected the key: {response.status_code} - {response.text}")
+
 EXCEL_PATH = "candidate_feature_store.xlsx"
 OUTPUT_EXCEL = "candidate_feature_store.xlsx"
 
