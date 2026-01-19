@@ -234,7 +234,7 @@ def llm_feature_engineering(raw_resume_text: str) -> FeatureProfile:
     Uses LLM to convert structured resume profile into scored features.
     """
 
-    parsed = gemini_model.generate_content(
+    parsed = client.chat.completions.create(
         model=MODEL_NAME,
         response_model=FeatureProfile,
         temperature=0,
@@ -882,7 +882,7 @@ Job Description:
 Output JSON only.
 """
 
-    response = gemini_model.generate_content(
+    response = llm_client.chat.completions.create(
         model=MODEL_NAME,
         temperature=0,
         messages=[{"role": "user", "content": prompt}],
