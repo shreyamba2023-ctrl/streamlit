@@ -54,7 +54,7 @@ if "GEMINI_API_KEY" in st.secrets:
     raw_key = st.secrets["GEMINI_API_KEY"]
     st.write(f"Key preview: {raw_key[:4]}...{raw_key[-4:]}")
 else:
-    st.error("API Key NOT found in st.secrets. Check your Streamlit Cloud settings."))
+    st.error("API Key NOT found in st.secrets. Check your Streamlit Cloud settings.")
 
 MODEL_NAME = "models/gemini-2.5-pro"
 GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai/"
