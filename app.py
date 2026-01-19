@@ -42,16 +42,6 @@ EMBED_TEXT_PATH = ARTIFACT_DIR / "rag_embedding_texts.json"
 
 load_dotenv()
 
-import google.generativeai as genai
-
-genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-
-@st.cache_resource
-def load_gemini_model():
-    return genai.GenerativeModel(MODEL_NAME)
-
-gemini_model = load_gemini_model()
-
 
 logging.basicConfig(
     level=logging.INFO,
