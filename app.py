@@ -59,25 +59,6 @@ else:
 MODEL_NAME = "models/gemini-2.5-pro"
 GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta"
 
-import streamlit as st
-import requests
-
-# 1. Inspect the key physically
-key_from_secrets = st.secrets["GEMINI_API_KEY"]
-st.write(f"Key length: {len(key_from_secrets)}") # Should be 39
-if key_from_secrets != key_from_secrets.strip():
-    st.error("🚨 Found hidden spaces/newlines in your Streamlit Secret!")
-
-# 2. Test the connection without the OpenAI library
-st.write("Testing direct connection to Google...")
-test_url = f"https://generativelanguage.googleapis.com/v1beta/models?key={key_from_secrets.strip()}"
-response = requests.get(test_url)
-
-if response.status_code == 200:
-    st.success("Google confirms the Key is valid!")
-else:
-    st.error(f"Google rejected the key: {response.status_code} - {response.text}")
-
 EXCEL_PATH = "candidate_feature_store.xlsx"
 OUTPUT_EXCEL = "candidate_feature_store.xlsx"
 
@@ -308,28 +289,6 @@ if not raw_key:
 # --- 2. Configure Native SDK (Used for PDF parsing) ---
 genai.configure(api_key=raw_key)
 
-st.write("### SDK Configuration Debug")
-try:
-    # 1. Check if the key is actually set in the global config
-    current_config = genai.get_model("models/gemini-2.5-pro")
-    
-    st.info(f"Key loaded? {'Yes' if raw_key else 'No'}")
-    st.info(f"Key Length: {len(raw_key)}")
-    
-    # 2. Test a minimal API call (The Handshake)
-    # This will trigger the actual HTTP request where 403s happen
-    models = genai.list_models()
-    model_list = [m.name for m in models]
-    st.write(model_list)
-    st.success("Connection Successful! Models retrieved.")
-    
-except Exception as e:
-    st.error(f"Configuration/Connection Error: {e}")
-    # This will log the full traceback to the Streamlit Cloud console
-    st.exception(e)
-
-# --- 3. Configure OpenAI-Compatible Client (Used for Instructor/Structured Data) ---
-# Note: Use v1beta for OpenAI compatibility
 GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta" 
 
 openai_client = OpenAI(
