@@ -629,10 +629,11 @@ CONTINENTS = [
 ]
 
 st.set_page_config(layout="wide")
+raw_key = st.secrets["GEMINI_API_KEY"].strip().replace('"', '').replace("'", "")
 
 llm_client = OpenAI(
     api_key=raw_key,
-    base_url=GEMINI_BASE_URL
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai" 
 )
 
 cc = coco.CountryConverter()
