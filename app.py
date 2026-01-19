@@ -292,7 +292,7 @@ genai.configure(api_key=raw_key)
 st.write("### SDK Configuration Debug")
 try:
     # 1. Check if the key is actually set in the global config
-    current_config = genai.get_model("models/gemini-1.5-pro")
+    current_config = genai.get_model("models/gemini-2.5-pro")
     
     st.info(f"Key loaded? {'Yes' if raw_key else 'No'}")
     st.info(f"Key Length: {len(raw_key)}")
