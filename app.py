@@ -57,7 +57,7 @@ EXCEL_PATH = "candidate_feature_store.xlsx"
 OUTPUT_EXCEL = "candidate_feature_store.xlsx"
 
 RESUME_FOLDER = Path(
-    "data/raw_resumes"
+    "Resumes"
 )
 
 class WorkEntry(BaseModel):
