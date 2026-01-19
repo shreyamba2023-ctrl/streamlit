@@ -310,7 +310,7 @@ except Exception as e:
 
 # --- 3. Configure OpenAI-Compatible Client (Used for Instructor/Structured Data) ---
 # Note: Use v1beta for OpenAI compatibility
-GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/" 
+GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta" 
 
 openai_client = OpenAI(
     api_key=raw_key,
