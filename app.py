@@ -320,6 +320,7 @@ try:
     # This will trigger the actual HTTP request where 403s happen
     models = genai.list_models()
     model_list = [m.name for m in models]
+    print(model_list)
     st.success("Connection Successful! Models retrieved.")
     
 except Exception as e:
