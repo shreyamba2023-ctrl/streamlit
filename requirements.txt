@@ -16,3 +16,5 @@ xlsxwriter
 openpyxl
 faiss-cpu
 sentence-transformers
+matplotlib
+
