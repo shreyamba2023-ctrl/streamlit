@@ -280,7 +280,7 @@ Resume Profile:
 
     return parsed
 # --- 1. Get the key safely ---
-raw_key = st.secrets.get("GEMINI_API_KEY")
+raw_key = st.secrets["GEMINI_API_KEY"]
 
 if not raw_key:
     st.error("API Key missing!")
