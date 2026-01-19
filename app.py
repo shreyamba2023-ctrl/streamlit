@@ -48,7 +48,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger("talent-search")
 
-GEMINI_API_KEY = "AIzaSyDglUgvr-N8c8WCu_rbNuu5wMAqtFpILpA"
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 
 MODEL_NAME = "models/gemini-2.5-pro"
 GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai/"
