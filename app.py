@@ -42,6 +42,17 @@ EMBED_TEXT_PATH = ARTIFACT_DIR / "rag_embedding_texts.json"
 
 load_dotenv()
 
+import google.generativeai as genai
+
+genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+
+@st.cache_resource
+def load_gemini_model():
+    return genai.GenerativeModel(MODEL_NAME)
+
+gemini_model = load_gemini_model()
+
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s | %(levelname)s | %(message)s"
@@ -223,7 +234,7 @@ def llm_feature_engineering(raw_resume_text: str) -> FeatureProfile:
     Uses LLM to convert structured resume profile into scored features.
     """
 
-    parsed = client.chat.completions.create(
+    parsed = gemini_model.generate_content(
         model=MODEL_NAME,
         response_model=FeatureProfile,
         temperature=0,
@@ -871,7 +882,7 @@ Job Description:
 Output JSON only.
 """
 
-    response = llm_client.chat.completions.create(
+    response = gemini_model.generate_content(
         model=MODEL_NAME,
         temperature=0,
         messages=[{"role": "user", "content": prompt}],
