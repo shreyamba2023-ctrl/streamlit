@@ -49,10 +49,10 @@ logging.basicConfig(
 logger = logging.getLogger("talent-search")
 
 if "GEMINI_API_KEY" in st.secrets:
-    st.success("API Key found in st.secrets!")
+    # st.success("API Key found in st.secrets!")
     # Print only the first/last characters to verify it's the correct key
     raw_key = st.secrets["GEMINI_API_KEY"]
-    st.write(f"Key preview: {raw_key[:4]}...{raw_key[-4:]}")
+    # st.write(f"Key preview: {raw_key[:4]}...{raw_key[-4:]}")
 else:
     st.error("API Key NOT found in st.secrets. Check your Streamlit Cloud settings.")
 
@@ -288,6 +288,25 @@ if not raw_key:
 
 # --- 2. Configure Native SDK (Used for PDF parsing) ---
 genai.configure(api_key=raw_key)
+
+st.write("### SDK Configuration Debug")
+try:
+    # 1. Check if the key is actually set in the global config
+    current_config = genai.get_model("models/gemini-1.5-pro")
+    
+    st.info(f"Key loaded? {'Yes' if raw_key else 'No'}")
+    st.info(f"Key Length: {len(raw_key)}")
+    
+    # 2. Test a minimal API call (The Handshake)
+    # This will trigger the actual HTTP request where 403s happen
+    models = genai.list_models()
+    model_list = [m.name for m in models]
+    st.success("Connection Successful! Models retrieved.")
+    
+except Exception as e:
+    st.error(f"Configuration/Connection Error: {e}")
+    # This will log the full traceback to the Streamlit Cloud console
+    st.exception(e)
 
 # --- 3. Configure OpenAI-Compatible Client (Used for Instructor/Structured Data) ---
 # Note: Use v1beta for OpenAI compatibility
