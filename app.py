@@ -57,7 +57,7 @@ else:
     st.error("API Key NOT found in st.secrets. Check your Streamlit Cloud settings.")
 
 MODEL_NAME = "models/gemini-2.5-pro"
-GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai/"
+GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta"
 
 EXCEL_PATH = "candidate_feature_store.xlsx"
 OUTPUT_EXCEL = "candidate_feature_store.xlsx"
