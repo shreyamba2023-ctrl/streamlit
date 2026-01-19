@@ -279,19 +279,27 @@ Resume Profile:
     )
 
     return parsed
+# --- 1. Get the key safely ---
+raw_key = st.secrets.get("GEMINI_API_KEY")
 
+if not raw_key:
+    st.error("API Key missing!")
+    st.stop()
+
+# --- 2. Configure Native SDK (Used for PDF parsing) ---
 genai.configure(api_key=raw_key)
 
-GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai/"
-MODEL_NAME = "models/gemini-2.5-pro"
+# --- 3. Configure OpenAI-Compatible Client (Used for Instructor/Structured Data) ---
+# Note: Use v1beta for OpenAI compatibility
+GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/" 
 
 openai_client = OpenAI(
     api_key=raw_key,
     base_url=GEMINI_BASE_URL
 )
 
+# Initialize Instructor
 client = instructor.from_openai(openai_client)
-
 
 def extract_text(file: Path) -> str:
     if file.suffix.lower() == ".docx":
