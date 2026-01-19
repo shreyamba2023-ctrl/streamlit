@@ -280,13 +280,13 @@ Resume Profile:
 
     return parsed
 
-genai.configure(api_key=GEMINI_API_KEY)
+genai.configure(api_key=raw_key)
 
 GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai/"
 MODEL_NAME = "models/gemini-2.5-pro"
 
 openai_client = OpenAI(
-    api_key=GEMINI_API_KEY,
+    api_key=raw_key,
     base_url=GEMINI_BASE_URL
 )
 
@@ -604,7 +604,7 @@ CONTINENTS = [
 st.set_page_config(layout="wide")
 
 llm_client = OpenAI(
-    api_key=GEMINI_API_KEY,
+    api_key=raw_key,
     base_url=GEMINI_BASE_URL
 )
 
